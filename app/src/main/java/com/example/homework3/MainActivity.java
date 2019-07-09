@@ -4,13 +4,18 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.res.Configuration;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import static com.example.homework3.Constants.REQUEST_SELECT_CONTACT;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,7 +42,11 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.btnContact:
-
+                i = new Intent(Intent.ACTION_PICK);
+                i.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+                if (i.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(i, Constants.REQUEST_SELECT_PHONE_NUMBER);
+                }
                 break;
         }
 
@@ -54,5 +63,21 @@ public class MainActivity extends AppCompatActivity {
             ImageView imgV = findViewById(R.id.imageView);
             imgV.setImageBitmap(imageBMP);
         }
+        else  if (requestCode == Constants.REQUEST_SELECT_PHONE_NUMBER && resultCode == RESULT_OK) {
+            // Get the URI and query the content provider for the phone number
+            Uri contactUri = data.getData();
+            String[] projection = new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER};
+            Cursor cursor = getContentResolver().query(contactUri, projection,
+                    null, null, null);
+            // If the cursor returned is valid, get the phone number
+            if (cursor != null && cursor.moveToFirst()) {
+                int numberIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+                String number = cursor.getString(numberIndex);
+
+                TextView textView = findViewById(R.id.txtViewContact);
+                textView.setText(number.concat(" HEY"));
+            }
+        }
     }
 }
+
