@@ -19,4 +19,4 @@ Given: July 9th, 2019
 
 ![Alt text](Screenshots/3.4.png?raw=true "Contact Intent")
 
-![Alt text](Screenshots/3.5.png?raw=true "Phone Number Captured to TextView in Main Activity")
+![Alt text](Screenshots/3.5_.png?raw=true "Phone Number Captured to TextView in Main Activity")
