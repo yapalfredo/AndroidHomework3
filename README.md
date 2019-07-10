@@ -3,7 +3,7 @@
 This third simple Android app contains one activity.
 It has 2 buttons, one is set to launch camera and the second one is set to launch contact.
 
-When you take photo after the camera intent is launched, you'll have the option to select the captured image, and when you get back to main activity, the capture image will be displayed on the ImageView.
+When you take photo after the camera intent is launched, you'll have the option to select the captured image, and when you get back to main activity, the captured image will be displayed on the ImageView.
 
 For the Contact intent, when you select a contact after it is launched, the contact number will be captured, you will be brought back to main acitivity and the phone number will be displayed om the TextView.
 
