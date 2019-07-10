@@ -66,16 +66,18 @@ public class MainActivity extends AppCompatActivity {
         else  if (requestCode == Constants.REQUEST_SELECT_PHONE_NUMBER && resultCode == RESULT_OK) {
             // Get the URI and query the content provider for the phone number
             Uri contactUri = data.getData();
-            String[] projection = new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER};
+            String[] projection = new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME};
             Cursor cursor = getContentResolver().query(contactUri, projection,
                     null, null, null);
             // If the cursor returned is valid, get the phone number
             if (cursor != null && cursor.moveToFirst()) {
-                int numberIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+               int numberIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
                 String number = cursor.getString(numberIndex);
+                int nameIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
+                String name = cursor.getString(nameIndex);
 
                 TextView textView = findViewById(R.id.txtViewContact);
-                textView.setText(number.concat(" HEY"));
+             textView.setText(number.concat("\n" + name));
             }
         }
     }
